@@ -1,0 +1,8 @@
+@import './scss/base/common.scss';
+@import './scss/utils/visually-hidden.scss';
+
+@import './components/Navigation/Navigation.module.scss';
+
+@import './views/HomeView/HomeView.module.scss';
+@import './views/MoviesView/MovieView.module.scss';
+@import './views/NotFoundView/NotFoundView.module.scss';

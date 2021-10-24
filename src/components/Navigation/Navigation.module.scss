@@ -1,0 +1,20 @@
+.nav {
+  padding: 20px;
+  box-shadow: 0 7px 2px -2px rgb(208, 205, 205);
+}
+
+.link {
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 20px;
+
+  color: black;
+
+  &--active {
+    color: red;
+  }
+
+  &:not(:last-child) {
+    margin-right: 15px;
+  }
+}
