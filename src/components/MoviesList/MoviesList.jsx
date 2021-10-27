@@ -1,7 +1,8 @@
-import { Link, useLocation } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+import { useLocation } from 'react-router';
 
 export default function MoviesList({ moviesArr }) {
-  //   console.log(moviesArr);
+  // console.log(moviesArr);
   const location = useLocation();
 
   return (
@@ -13,9 +14,7 @@ export default function MoviesList({ moviesArr }) {
               pathname: `/movies/${movie.id}`,
               state: {
                 from:
-                  location.pathname.name === '/'
-                    ? '/'
-                    : '/movies' + location.search,
+                  location.pathname === '/' ? '/' : '/movies' + location.search,
               },
             }}
           >

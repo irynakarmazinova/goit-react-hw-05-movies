@@ -1,8 +1,12 @@
 import { useState, useEffect } from 'react';
 import { useHistory, useLocation } from 'react-router';
-import { getFilmsByQuery } from '../../services/moviesApi';
+import { getFilmsByQuery } from 'services/moviesApi';
 
+import Title from 'components/Title/Title';
+import SearchForm from 'components/SearchForm/SearchForm';
 import MoviesList from 'components/MoviesList/MoviesList';
+
+import s from './MovieView.module.scss';
 
 export default function MovieView() {
   // query - по которому будем отправлять запрос из инпута
@@ -13,7 +17,7 @@ export default function MovieView() {
   const location = useLocation();
 
   const serchQuery = new URLSearchParams(location.search).get('query');
-  // console.log(serchQuery);
+  // // console.log(serchQuery);
 
   useEffect(() => {
     if (serchQuery) {
@@ -34,21 +38,10 @@ export default function MovieView() {
   };
 
   return (
-    <div className="box">
-      {/* <h2>Movie Page</h2> */}
-      <form onSubmit={onSubmit}>
-        <input
-          onChange={onChange}
-          type="text"
-          value={query}
-          className="input"
-        />
-        <button type="submit" className="btn">
-          Search
-        </button>
-      </form>
-
-      <MoviesList moviesArr={movies} />
+    <div className={s.box}>
+      <Title title="Movie search" />
+      <SearchForm query={query} onChange={onChange} onSubmit={onSubmit} />
+      {movies ? <MoviesList moviesArr={movies} /> : <p>No</p>}
     </div>
   );
 }

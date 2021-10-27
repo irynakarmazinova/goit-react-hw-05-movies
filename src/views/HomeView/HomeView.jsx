@@ -3,6 +3,8 @@ import { getTrendingFilms } from 'services/moviesApi';
 
 import MoviesList from 'components/MoviesList/MoviesList';
 
+import s from './HomeView.module.scss';
+
 export default function HomeView() {
   const [movies, setMovies] = useState([]);
 
@@ -11,9 +13,8 @@ export default function HomeView() {
   }, []);
 
   return (
-    <div className="box">
-      <h2 className="title">Trending today</h2>
-      <ul></ul>
+    <div className={s.box}>
+      <h2 className={s.title}>Trending today</h2>
 
       <MoviesList moviesArr={movies} />
     </div>

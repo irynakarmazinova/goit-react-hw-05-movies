@@ -1,22 +1,29 @@
 import {
   useParams,
-  useHistory,
   useLocation,
   Route,
   Switch,
   useRouteMatch,
-} from 'react-router'; //или через useRouteMatch
+} from 'react-router'; //или через useRouteMatch для сост вложенной навигации
 import { NavLink } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 
 import { getFilmById } from 'services/moviesApi';
-import Cast from 'components/Cast/Cast';
 
-export default function MovieDetailsPage() {
+import ButtonGoBack from 'components/ButtonGoBack/ButtonGoBack';
+import Title from 'components/Title/Title';
+import MovieCard from 'components/MovieCard/MovieCard';
+import Cast from 'components/Cast/Cast';
+import Reviews from 'components/Reviews/Reviews';
+import Trailer from 'components/Trailer/Trailer';
+
+import s from './MovieDetailsView.module.scss';
+
+export default function MovieDetailsView() {
   const [movieDetails, setMovieDetails] = useState(null);
-  const { movieId } = useParams();
+  const { movieId } = useParams(); //объект динамических параметров
   // console.log(params);
-  const history = useHistory();
+
   const location = useLocation();
   const { url } = useRouteMatch();
   // console.log(history);
@@ -24,52 +31,71 @@ export default function MovieDetailsPage() {
   useEffect(() => {
     getFilmById(movieId).then(setMovieDetails);
   }, [movieId]);
-
   // console.log(movieDetails);
 
-  const handleGoBack = () => {
-    if (location.state?.from) {
-      history.push(location.state.from);
-    }
-  };
-
   if (!movieDetails) {
-    // return <></>; //нужно что-то вернуть, хотя бы пустой фрагмент
-    return <p>Not found</p>; //нужно что-то вернуть, хотя бы пустой фрагмент
+    return <></>; //нужно что-то вернуть, хотя бы пустой фрагмент
   }
 
   return (
-    <div>
-      <button //type="button"
-        onClick={handleGoBack}
-      >
-        Go back
-      </button>
-      <h2>{movieDetails.title}</h2>
-      <img
-        src={`https://image.tmdb.org/t/p/w500${movieDetails.backdrop_path}`}
-        alt={movieDetails.title}
-      />
+    <div className={s.box}>
+      <ButtonGoBack />
 
-      <NavLink
-        to={{
-          pathname: url + '/cast',
-          state: { ...location.state, id: movieId },
-        }}
-      >
-        Cast
-      </NavLink>
+      <MovieCard movieDetails={movieDetails} />
+
+      <Title title="Additional information" />
+
+      <ul>
+        <li>
+          <NavLink
+            to={{
+              pathname: url + '/cast',
+              state: { ...location.state, id: movieId },
+            }}
+          >
+            Cast
+          </NavLink>
+        </li>
+        <li>
+          <NavLink
+            to={{
+              pathname: url + '/reviews',
+              state: { ...location.state, id: movieId },
+            }}
+          >
+            Reviews
+          </NavLink>
+        </li>
+        <li>
+          <NavLink
+            to={{
+              pathname: url + '/trailer',
+              state: { ...location.state, id: movieId },
+            }}
+          >
+            Trailer
+          </NavLink>
+        </li>
+      </ul>
 
       <Switch>
-        <Route path={`${url} / cast`}>
+        <Route exact path={`${url}/cast`}>
           <Cast movieId={movieId} />
         </Route>
 
-        <Route path={`${url}/ reviews`}></Route>
+        <Route exact path={`${url}/reviews`}>
+          <Reviews movieId={movieId} />
+        </Route>
+
+        <Route exact path={`${url}/trailer`}>
+          <Trailer movieId={movieId} />
+        </Route>
       </Switch>
     </div>
   );
 }
 
+// -------------------------------------------
 // добавить теги и еще
 // добавить картинку
+// useRouteMatch для сост вложенной навигации

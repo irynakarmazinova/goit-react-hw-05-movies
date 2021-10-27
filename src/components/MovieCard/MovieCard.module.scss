@@ -1,0 +1,49 @@
+.movieBox {
+  display: flex;
+
+  margin-bottom: 20px;
+}
+
+.images {
+  width: 350px;
+}
+
+.description_box {
+  margin: 20px;
+}
+
+.title {
+  margin-bottom: 10px;
+}
+
+.user {
+  margin-bottom: 10px;
+}
+
+.overview {
+  font-weight: 700;
+  font-size: 22px;
+
+  margin-bottom: 10px;
+
+  &_text {
+    margin-bottom: 10px;
+  }
+}
+
+.genres {
+  font-weight: 700;
+  font-size: 17px;
+
+  margin-bottom: 10px;
+}
+
+.genr_name {
+  &:not(:last-child) {
+    margin-right: 10px;
+  }
+}
+
+.info {
+  margin-bottom: 10px;
+}

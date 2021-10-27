@@ -21,11 +21,12 @@ function App() {
         </Route>
 
         <Route path="/movies/:movieId">
-          <MoviesView />
+          {/* <Route exact path="/movies/:movieId"> */}
+          <MovieDetailsView />
         </Route>
 
         <Route path="/movies/">
-          <MovieDetailsView />
+          <MoviesView />
         </Route>
 
         <Route>
