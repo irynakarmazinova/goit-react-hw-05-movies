@@ -6,7 +6,7 @@ export default function MovieCard({ movieDetails }) {
   return (
     <div className={s.movieBox}>
       <img
-        className={s.images}
+        className={s.image}
         src={
           movieDetails.backdrop_path
             ? `https://image.tmdb.org/t/p/w500${movieDetails.backdrop_path}`
@@ -15,20 +15,20 @@ export default function MovieCard({ movieDetails }) {
         alt={movieDetails.tagline}
       />
 
-      <div className={s.description_box}>
+      <div className={s.descriptionBox}>
         <h2 className={s.title}>
           {movieDetails.title}{' '}
           {movieDetails.release_date ? `${movieDetails.release_date}` : ''}
         </h2>
-        <p className={s.user}>
+        <p className={s.userScore}>
           User Score: {(movieDetails.vote_average * 100) / 10}%
         </p>
         <p className={s.overview}>Overview</p>
-        <p className={s.overview_text}>{movieDetails.overview}</p>
+        <p className={s.overview__text}>{movieDetails.overview}</p>
         <p className={s.genres}>Genres</p>
         <p>
           {movieDetails.genres.map(({ name, id }) => (
-            <span className={s.genr_name} key={id}>
+            <span className={s.genres__name} key={id}>
               {name}
             </span>
           ))}

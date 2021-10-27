@@ -6,7 +6,7 @@ import { getReviewsInfo } from 'services/moviesApi';
 export default function Reviews({ movieId }) {
   const [reviews, setReviews] = useState([]);
 
-  const location = useLocation();
+  // const location = useLocation();
   //   console.log(location);
 
   useEffect(() => {

@@ -4,11 +4,12 @@
   margin-bottom: 20px;
 }
 
-.images {
-  width: 350px;
-}
+// .image {
+//   width: 200px;
+//   object-fit: cover;
+// }
 
-.description_box {
+.descriptionBox {
   margin: 20px;
 }
 
@@ -16,7 +17,7 @@
   margin-bottom: 10px;
 }
 
-.user {
+.userScore {
   margin-bottom: 10px;
 }
 
@@ -26,7 +27,7 @@
 
   margin-bottom: 10px;
 
-  &_text {
+  &__text {
     margin-bottom: 10px;
   }
 }
@@ -36,11 +37,11 @@
   font-size: 17px;
 
   margin-bottom: 10px;
-}
 
-.genr_name {
-  &:not(:last-child) {
-    margin-right: 10px;
+  &__name {
+    &:not(:last-child) {
+      margin-right: 10px;
+    }
   }
 }
 

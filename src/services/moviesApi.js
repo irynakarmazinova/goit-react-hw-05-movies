@@ -35,7 +35,7 @@ export async function getReviewsInfo(movieId) {
 
 export async function getTrailerVideo(movieId) {
   const res = await axios.get(`/movie/${movieId}/videos?api_key=${API_KEY}`);
-  return res.config;
+  return res.data.results;
 }
 // ----------------------------------------------------
 // если нет jsx разметки, то расширение файла должно быть js

@@ -12,7 +12,7 @@ export default function Cast({ movieId }) {
 
   const [cast, setCast] = useState([]);
 
-  const location = useLocation();
+  // const location = useLocation();
   //   console.log(location);
 
   useEffect(() => {

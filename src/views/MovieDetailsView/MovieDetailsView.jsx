@@ -4,7 +4,7 @@ import {
   Route,
   Switch,
   useRouteMatch,
-} from 'react-router'; //или через useRouteMatch для сост вложенной навигации
+} from 'react-router';
 import { NavLink } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 
@@ -21,7 +21,7 @@ import s from './MovieDetailsView.module.scss';
 
 export default function MovieDetailsView() {
   const [movieDetails, setMovieDetails] = useState(null);
-  const { movieId } = useParams(); //объект динамических параметров
+  const { movieId } = useParams();
   // console.log(params);
 
   const location = useLocation();
@@ -96,6 +96,5 @@ export default function MovieDetailsView() {
 }
 
 // -------------------------------------------
-// добавить теги и еще
-// добавить картинку
-// useRouteMatch для сост вложенной навигации
+// useParams - объект co всеми динамическими параметрами
+// useRouteMatch для сост вложенной навигации, что бы получить объект с инфо о том как текущий маршрут(компонент) совпал с url в адресной строке браузера
