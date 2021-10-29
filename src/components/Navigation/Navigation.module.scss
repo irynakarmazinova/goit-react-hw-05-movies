@@ -1,6 +1,6 @@
 .nav {
   padding: 20px;
-  box-shadow: 0 7px 2px -2px rgb(208, 205, 205);
+  // box-shadow: 0 7px 2px -2px rgb(208, 205, 205);
 }
 
 .link {
@@ -17,4 +17,9 @@
   &:not(:last-child) {
     margin-right: 15px;
   }
+}
+
+hr {
+  margin: 0;
+  padding: 0;
 }

@@ -43,41 +43,47 @@ export default function MovieDetailsView() {
 
       <MovieCard movieDetails={movieDetails} />
 
-      <Title title="Additional information" />
+      <hr />
 
-      <ul>
-        <li>
-          <NavLink
-            to={{
-              pathname: url + '/cast',
-              state: { ...location.state, id: movieId },
-            }}
-          >
-            Cast
-          </NavLink>
-        </li>
-        <li>
-          <NavLink
-            to={{
-              pathname: url + '/reviews',
-              state: { ...location.state, id: movieId },
-            }}
-          >
-            Reviews
-          </NavLink>
-        </li>
-        <li>
-          <NavLink
-            to={{
-              pathname: url + '/trailer',
-              state: { ...location.state, id: movieId },
-            }}
-          >
-            Trailer
-          </NavLink>
-        </li>
-      </ul>
+      <div className={s.boxAdditional}>
+        <h2 className={s.title}>Additional information</h2>
+        {/* <Title title="Additional information" /> */}
 
+        <ul>
+          <li>
+            <NavLink
+              to={{
+                pathname: url + '/cast',
+                state: { ...location.state, id: movieId },
+              }}
+            >
+              Cast
+            </NavLink>
+          </li>
+          <li>
+            <NavLink
+              to={{
+                pathname: url + '/reviews',
+                state: { ...location.state, id: movieId },
+              }}
+            >
+              Reviews
+            </NavLink>
+          </li>
+          <li>
+            <NavLink
+              to={{
+                pathname: url + '/trailer',
+                state: { ...location.state, id: movieId },
+              }}
+            >
+              Trailer
+            </NavLink>
+          </li>
+        </ul>
+      </div>
+
+      {/* вложенный маршрут, стр будет не перезагружаться, а будет рендериться на той же стр где нахожусь */}
       <Switch>
         <Route exact path={`${url}/cast`}>
           <Cast movieId={movieId} />
@@ -96,5 +102,28 @@ export default function MovieDetailsView() {
 }
 
 // -------------------------------------------
-// useParams - объект co всеми динамическими параметрами
+// useParams - объект co всеми динамическими параметрами, получить id
 // useRouteMatch для сост вложенной навигации, что бы получить объект с инфо о том как текущий маршрут(компонент) совпал с url в адресной строке браузера
+
+// свойство path - для вложенных маршрутов
+// свойство url - для вложенной навигации
+
+// что бы переходить в каст не перезагружая - Занятие 9 - 1:28 - вложенные маршруты
+// {authors && (
+//         <ul>
+//           {authors.map(author => (
+//             <li key={author.id}>
+//               <NavLink to={`${url}/${author.id}`}>{author.name}</NavLink>
+//             </li>
+//           ))}
+//         </ul>
+//       )}
+//       <hr />
+
+//       <Route path={`${path}/:authorId`}>
+//         {authors && <AuthorSubView authors={authors} />}
+//       </Route>
+
+// импорты из пакетов - абсолютные импорты - относительные импорты
+
+// Redirect -

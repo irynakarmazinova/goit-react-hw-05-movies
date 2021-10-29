@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { useLocation } from 'react-router';
+// import { useLocation } from 'react-router';
 
 import { getTrailerVideo } from 'services/moviesApi';
 
@@ -15,11 +15,11 @@ export default function Trailer({ movieId }) {
 
   return (
     <>
-      {trailer.map(tr => (
+      {trailer.map(({ id, key, name }) => (
         <iframe
-          key={tr.id}
-          src={`https://www.youtube.com/embed/${tr.key}`}
-          title={tr.name}
+          key={id}
+          src={`https://www.youtube.com/embed/${key}`}
+          title={name}
           frameborder="0"
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
           allowfullscreen
