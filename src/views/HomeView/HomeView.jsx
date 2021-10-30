@@ -1,4 +1,5 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Suspense } from 'react';
+
 import { getTrendingFilms } from 'services/moviesApi';
 
 import MoviesList from 'components/MoviesList/MoviesList';
@@ -16,7 +17,9 @@ export default function HomeView() {
     <div className={s.box}>
       <h2 className={s.title}>Trending today</h2>
 
-      <MoviesList moviesArr={movies} />
+      <Suspense fallback={<h2>Loading movies list...</h2>}>
+        <MoviesList movies={movies} />
+      </Suspense>
     </div>
   );
 }

@@ -1,5 +1,6 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Suspense } from 'react';
 import { useHistory, useLocation } from 'react-router';
+
 import { getFilmsByQuery } from 'services/moviesApi';
 
 import Title from 'components/Title/Title';
@@ -41,7 +42,10 @@ export default function MovieView() {
     <div className={s.box}>
       <Title title="Movie search" />
       <SearchForm query={query} onChange={onChange} onSubmit={onSubmit} />
-      {movies ? <MoviesList moviesArr={movies} /> : <p>No</p>}
+
+      <Suspense fallback={<h2>Loading movies list...</h2>}>
+        <MoviesList movies={movies} />
+      </Suspense>
     </div>
   );
 }

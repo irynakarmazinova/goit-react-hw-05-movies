@@ -5,15 +5,14 @@ axios.defaults.baseURL = 'https://api.themoviedb.org/3';
 
 export async function getTrendingFilms() {
   const resp = await axios.get(`/trending/movie/week?api_key=${API_KEY}`);
+  // const resp = await axios.get(`/trending/all/day?api_key=${API_KEY}`);
   return resp.data.results;
 }
-// в хом отображаются популярные
 
 export async function getFilmsByQuery(query) {
   const {
     data: { results },
-  } = await axios.get('/search/movie?api_key=' + API_KEY + '&query=' + query);
-
+  } = await axios.get(`/search/movie?api_key=${API_KEY}&query=${query}`);
   return results;
 }
 

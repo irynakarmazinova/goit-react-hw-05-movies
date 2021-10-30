@@ -20,9 +20,9 @@ export default function Trailer({ movieId }) {
           key={id}
           src={`https://www.youtube.com/embed/${key}`}
           title={name}
-          frameborder="0"
+          frameBorder="0"
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-          allowfullscreen
+          allowFullScreen
           // width="560"
           // height="315"
         ></iframe>

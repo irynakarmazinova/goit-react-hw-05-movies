@@ -9,6 +9,18 @@
   margin-bottom: 10px;
 }
 
+.link {
+  text-decoration: none;
+  font-weight: 400;
+  font-size: 17px;
+
+  color: black;
+
+  &_active {
+    color: red;
+  }
+}
+
 hr {
   margin: 0;
   padding: 0;

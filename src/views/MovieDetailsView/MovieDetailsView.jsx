@@ -6,23 +6,33 @@ import {
   useRouteMatch,
 } from 'react-router';
 import { NavLink } from 'react-router-dom';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, lazy, Suspense } from 'react';
 
 import { getFilmById } from 'services/moviesApi';
 
 import ButtonGoBack from 'components/ButtonGoBack/ButtonGoBack';
-import Title from 'components/Title/Title';
 import MovieCard from 'components/MovieCard/MovieCard';
-import Cast from 'components/Cast/Cast';
-import Reviews from 'components/Reviews/Reviews';
-import Trailer from 'components/Trailer/Trailer';
+// import NotFoundView from 'views/NotFoundView/NotFoundView';
 
 import s from './MovieDetailsView.module.scss';
 
+const Cast = lazy(() =>
+  import('../../components/Cast/Cast' /* webpackChunkName: "Cast" */),
+);
+const Reviews = lazy(() =>
+  import('../../components/Reviews/Reviews' /* webpackChunkName: "Reviews" */),
+);
+const Trailer = lazy(() =>
+  import('../../components/Trailer/Trailer' /* webpackChunkName: "Trailer" */),
+);
+
+// страница одного фильма
 export default function MovieDetailsView() {
   const [movieDetails, setMovieDetails] = useState(null);
-  const { movieId } = useParams();
-  // console.log(params);
+  // console.log(movieDetails);
+
+  const { slug } = useParams();
+  const movieId = slug.match(/[a-z0-9]+$/)[0];
 
   const location = useLocation();
   const { url } = useRouteMatch();
@@ -40,11 +50,8 @@ export default function MovieDetailsView() {
   return (
     <div className={s.box}>
       <ButtonGoBack />
-
       <MovieCard movieDetails={movieDetails} />
-
       <hr />
-
       <div className={s.boxAdditional}>
         <h2 className={s.title}>Additional information</h2>
         {/* <Title title="Additional information" /> */}
@@ -56,6 +63,8 @@ export default function MovieDetailsView() {
                 pathname: url + '/cast',
                 state: { ...location.state, id: movieId },
               }}
+              className={s.link}
+              activeClassName={s.link_active}
             >
               Cast
             </NavLink>
@@ -66,6 +75,8 @@ export default function MovieDetailsView() {
                 pathname: url + '/reviews',
                 state: { ...location.state, id: movieId },
               }}
+              className={s.link}
+              activeClassName={s.link_active}
             >
               Reviews
             </NavLink>
@@ -76,6 +87,8 @@ export default function MovieDetailsView() {
                 pathname: url + '/trailer',
                 state: { ...location.state, id: movieId },
               }}
+              className={s.link}
+              activeClassName={s.link_active}
             >
               Trailer
             </NavLink>
@@ -84,19 +97,26 @@ export default function MovieDetailsView() {
       </div>
 
       {/* вложенный маршрут, стр будет не перезагружаться, а будет рендериться на той же стр где нахожусь */}
-      <Switch>
-        <Route exact path={`${url}/cast`}>
-          <Cast movieId={movieId} />
-        </Route>
+      {/* <Suspense fallback={<Loader />}> */}
+      <Suspense fallback={<h2>Loading in movie card...</h2>}>
+        <Switch>
+          <Route exact path={`${url}/cast`}>
+            <Cast movieId={movieId} />
+          </Route>
 
-        <Route exact path={`${url}/reviews`}>
-          <Reviews movieId={movieId} />
-        </Route>
+          <Route exact path={`${url}/reviews`}>
+            <Reviews movieId={movieId} />
+          </Route>
 
-        <Route exact path={`${url}/trailer`}>
-          <Trailer movieId={movieId} />
-        </Route>
-      </Switch>
+          <Route exact path={`${url}/trailer`}>
+            <Trailer movieId={movieId} />
+          </Route>
+
+          {/* <Route>
+            <NotFoundView />
+          </Route> */}
+        </Switch>
+      </Suspense>
     </div>
   );
 }
@@ -105,8 +125,8 @@ export default function MovieDetailsView() {
 // useParams - объект co всеми динамическими параметрами, получить id
 // useRouteMatch для сост вложенной навигации, что бы получить объект с инфо о том как текущий маршрут(компонент) совпал с url в адресной строке браузера
 
-// свойство path - для вложенных маршрутов
-// свойство url - для вложенной навигации
+// свойство path - для вложенных маршрутов/шаблон на который зарендерился текущий раут
+// свойство url - для вложенной навигации/что находится в адресной строке
 
 // что бы переходить в каст не перезагружая - Занятие 9 - 1:28 - вложенные маршруты
 // {authors && (

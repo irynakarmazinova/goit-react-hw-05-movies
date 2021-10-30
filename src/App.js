@@ -1,13 +1,26 @@
 import { Switch, Route } from 'react-router';
+import { lazy, Suspense } from 'react';
 
 import Navigation from 'components/Navigation/Navigation';
 
-import HomeView from 'views/HomeView/HomeView';
-import MoviesView from 'views/MoviesView/MoviesView';
-import MovieDetailsView from 'views/MovieDetailsView/MovieDetailsView';
-import NotFoundView from 'views/NotFoundView/NotFoundView';
-
 import './App.scss';
+
+const HomeView = lazy(() =>
+  import('./views/HomeView/HomeView' /* webpackChunkName: "HomeView" */),
+);
+const MoviesView = lazy(() =>
+  import('./views/MoviesView/MoviesView' /* webpackChunkName: "MoviesView" */),
+);
+const MovieDetailsView = lazy(() =>
+  import(
+    './views/MovieDetailsView/MovieDetailsView' /* webpackChunkName: "MovieDetailsView" */
+  ),
+);
+const NotFoundView = lazy(() =>
+  import(
+    './views/NotFoundView/NotFoundView' /* webpackChunkName: "NotFoundView" */
+  ),
+);
 
 function App() {
   return (
@@ -15,24 +28,27 @@ function App() {
       <h1 className="visually-hidden">Movies</h1>
       <Navigation />
 
-      <Switch>
-        <Route exact path="/">
-          <HomeView />
-        </Route>
+      {/* <Suspense fallback={<Loader />}> */}
+      <Suspense fallback={<h2>Loading...</h2>}>
+        <Switch>
+          <Route exact path="/">
+            <HomeView />
+          </Route>
 
-        <Route path="/movies/:movieId">
-          {/* <Route exact path="/movies/:movieId"> */}
-          <MovieDetailsView />
-        </Route>
+          <Route path="/movies/:slug">
+            {/* <Route exact path="/movies/:movieId"> */}
+            <MovieDetailsView />
+          </Route>
 
-        <Route path="/movies/">
-          <MoviesView />
-        </Route>
+          <Route path="/movies/">
+            <MoviesView />
+          </Route>
 
-        <Route>
-          <NotFoundView />
-        </Route>
-      </Switch>
+          <Route>
+            <NotFoundView />
+          </Route>
+        </Switch>
+      </Suspense>
     </div>
   );
 }
@@ -50,3 +66,11 @@ export default App;
 // маршрутизатор - следит за изменениями адресной строки и рендерит изменения.
 
 // single page application
+
+// резолвятся - обрабатываются
+
+// lazy, Suspense - для разделения кода
+
+// react query v3
+// react hook form
+// next.js
